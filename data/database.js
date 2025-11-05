@@ -5,14 +5,15 @@ export const connectDB = async () => {
     try{
         const {connection } = await mongoose.connect(`${process.env.MONGO_URI}`, {
             dbName: "Flags",
-            serverSelectionTimeoutMS: 10000,
+            serverSelectionTimeoutMS: 30000,
+            socketTimeoutMS: 45000
         });
         
 
-        console.log(`Server connected to databse ${connection.host}`);
+        console.log(`Server connected to database ${connection.host}`);
 
     }catch(error){
-        console.log("Error occured", error);
+        console.log("Error occurred", error.message);
 
         process.exit(1);
     }
