@@ -44,6 +44,3 @@ app-example
 notes.md
 # Local Netlify folder
 .netlify
-
-server.cert
-server.key
