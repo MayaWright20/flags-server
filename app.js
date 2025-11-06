@@ -1,15 +1,11 @@
 import cookieParser from "cookie-parser";
-// const cookieParser = require("cookie-parser");
-// const config = require("dotenv");
 import { config } from "dotenv";
-// const express = require("express");
 import express from "express";
-// const helmet = require("helmet")
 import helmet from "helmet";
-// const errorMiddleware = require("./middleware/error.js");
 import { errorMiddleware } from "./middleware/error.js";
 import user from "./routes/user.js";
-// const  user = require("./routes/user.js");
+import flag from "./routes/flag.js";
+
 
 config({
     path: "./data/config.env"
@@ -33,19 +29,23 @@ app.get("/", (req, res, next)=> {
             "POST /user/login", 
             "GET /user/profile",
             "GET /user/logout",
+            "GET /favourites",
             "POST /api/v1/user/signup",
             "POST /api/v1/user/login",
             "GET /api/v1/user/profile", 
-            "GET /api/v1/user/logout"
+            "GET /api/v1/user/logout",
+            "GET /api/v1/favourites",
         ]
     })
 })
 
 // Mount user routes
 app.use("/api/v1/user", user);
+app.use("/api/v1/favourites", flag);
 
 // Also mount routes directly under /user for convenience
 app.use("/user", user);
+app.use("/favourites", flag);
 
 // 404 handler for unmatched routes
 app.use((req, res, next) => {
