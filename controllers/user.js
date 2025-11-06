@@ -61,4 +61,50 @@ export const getMyProfile = asyncError(async(req, res, next)=> {
         success: true,
         user
     })
-})
+});
+
+export const updateFavourites = asyncError(async(req, res, next) => {
+    const { flag } = req.body;
+    
+    if (!flag) {
+        return next(new ErrorHandler("Flag is required", 400));
+    }
+
+    const user = await User.findById(req.user._id);
+    
+    if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+    }
+
+    // Check if flag already exists in favourites
+    const flagIndex = user.favourites.indexOf(flag);
+    
+    let message;
+    if (flagIndex > -1) {
+        // Flag exists, remove it
+        user.favourites.splice(flagIndex, 1);
+        message = "Flag removed from favourites";
+    } else {
+        // Flag doesn't exist, add it
+        user.favourites.push(flag);
+        message = "Flag added to favourites";
+    }
+
+    await user.save();
+
+    res.status(200).json({
+        success: true,
+        message,
+        favourites: user.favourites
+    });
+});
+
+
+export const readAllFavourites = asyncError(async(req, res, next)=> {
+    const {favourites} = await User.findById(req.user._id);
+
+    res.status(200).json({
+        success: true,
+        favourites
+    })
+});

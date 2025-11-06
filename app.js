@@ -4,7 +4,6 @@ import express from "express";
 import helmet from "helmet";
 import { errorMiddleware } from "./middleware/error.js";
 import user from "./routes/user.js";
-import flag from "./routes/flag.js";
 
 
 config({
@@ -29,23 +28,21 @@ app.get("/", (req, res, next)=> {
             "POST /user/login", 
             "GET /user/profile",
             "GET /user/logout",
-            "GET /favourites",
+            "GET /user/favourites",
             "POST /api/v1/user/signup",
             "POST /api/v1/user/login",
             "GET /api/v1/user/profile", 
             "GET /api/v1/user/logout",
-            "GET /api/v1/favourites",
+            "GET /api/v1/user/favourites",
         ]
     })
 })
 
 // Mount user routes
 app.use("/api/v1/user", user);
-app.use("/api/v1/favourites", flag);
 
 // Also mount routes directly under /user for convenience
 app.use("/user", user);
-app.use("/favourites", flag);
 
 // 404 handler for unmatched routes
 app.use((req, res, next) => {
