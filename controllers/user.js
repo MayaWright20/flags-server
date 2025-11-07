@@ -2,6 +2,7 @@ import { asyncError } from "../middleware/error.js";
 import { User } from "../models/user.js";
 import ErrorHandler from "../utils/error.js";
 import { cookieOptions, sendToken } from "../utils/feature.js";
+import mongoose from "mongoose";
 
 export const login = asyncError(async(req, res, next) => {
     const {email, password, username} = req.body;
@@ -61,6 +62,19 @@ export const getMyProfile = asyncError(async(req, res, next)=> {
         success: true,
         user
     })
+});
+
+export const deleteMyProfile = asyncError(async(req, res, next)=> {
+    const user = await User.findByIdAndDelete(req.user._id);
+
+    if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "Profile deleted successfully"
+    });
 });
 
 export const updateFavourites = asyncError(async(req, res, next) => {
