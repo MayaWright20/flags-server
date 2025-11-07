@@ -2,7 +2,6 @@ import { asyncError } from "../middleware/error.js";
 import { User } from "../models/user.js";
 import ErrorHandler from "../utils/error.js";
 import { cookieOptions, sendToken } from "../utils/feature.js";
-import mongoose from "mongoose";
 
 export const login = asyncError(async(req, res, next) => {
     const {email, password, username} = req.body;
