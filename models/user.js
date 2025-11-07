@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { unique } from "next/dist/build/utils";
 import validator from "validator";
 
 const schema = new mongoose.Schema({
