@@ -28,12 +28,14 @@ app.get("/", (req, res, next)=> {
             "POST /user/login", 
             "GET /user/profile",
             "GET /user/logout",
+            "DELETE /user/delete",
             "GET /user/favourites",
             "POST /api/v1/user/signup",
             "POST /api/v1/user/login",
             "GET /api/v1/user/profile", 
             "GET /api/v1/user/logout",
             "GET /api/v1/user/favourites",
+            "DELETE /api/v1/user/delete",
         ]
     })
 })
