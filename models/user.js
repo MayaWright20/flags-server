@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import { unique } from "next/dist/build/utils";
 import validator from "validator";
 
 const schema = new mongoose.Schema({
@@ -18,6 +19,11 @@ const schema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter username"],
         unique: [true, "Username already taken"],
+    },
+    phone: {
+        type: String,
+        required: [true, "Please enter a phone number"],
+        unique: [true, "Please enter a valid phone number"]
     },
     password: {
         type: String,

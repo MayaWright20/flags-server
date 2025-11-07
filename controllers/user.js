@@ -39,18 +39,18 @@ export const logout = asyncError(async(req, res, next)=> {
 
 export const signUp = asyncError(async(req, res, next) => {
 
-    const {name, email, password, username} = req.body;
+    const {name, email, password, username, phone} = req.body;
 
     let user = await User.findOne({
         $or: [
             { email: email || username },
-            { username: email || username }
+            { username: email || username },
         ]
     });
 
     if(user) return next(new ErrorHandler("User already exists", 400));
 
-    user = await User.create({name, email, password, username});
+    user = await User.create({name, email, password, username, phone});
 
     sendToken(user, res, "Welcome!", 201)
 });
